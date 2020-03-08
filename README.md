@@ -9,5 +9,9 @@
 - Every flatowner can discuss their issues on MMS's forum their issues can get upvotes and downvotes. (optional)
 - Online payment with wallets like paytm, etc. (optional)
 
+## Todo
+- consider date in maintenance bill
+- use ajax for forum's upvote downvote
+
 ## Copyrights
 MMS is Nitin Sahu's property.

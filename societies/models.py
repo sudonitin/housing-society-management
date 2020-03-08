@@ -37,4 +37,4 @@ class MaintenanceBill(models.Model):
     paid = models.CharField(max_length = 3, default = 'no')
 
     def __str__(self):
-        return str(self.society) + ' | ' + str(self.user)
+        return str(self.society) + ' | ' + str(self.for_owner)

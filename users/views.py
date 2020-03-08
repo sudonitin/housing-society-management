@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_list_or_404
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404, HttpResponseRedirect
 from .forms import RegisterUser
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -30,6 +30,35 @@ def home(request):
 def createBill(request):
     secretary = SocietyDetail.objects.filter(secretary = request.user)
     if secretary:
-        return render(request, 'societies/bill.html')
+        owners = Owner.objects.filter(society = secretary[0])
+        return render(request, 'societies/bill.html', {'flat_owners': owners, 'society': secretary[0]})
+    return render(request, 'societies/message.html', 
+                    {'message': 'You are not authorized for this action'})
+
+@login_required
+def sendBill(request):
+    secretary = SocietyDetail.objects.filter(secretary = request.user)
+    
+    if secretary:
+        if request.method == 'POST':
+            selectedOwners = request.POST.getlist('select_user')
+            society = get_object_or_404(SocietyDetail, society_name = request.POST['society'])
+            description = request.POST['description']
+
+            # loop through selected owners and save in maintenance bill
+            for i in selectedOwners:
+                MaintenanceBill(
+                    for_owner = get_object_or_404(User, username = i),
+                    society = society,
+                    description = description
+                    ).save()
+            print('hi nitin how are you my man')
+            messages.success(request, 'Bill Sent Successfully!')
+            return HttpResponseRedirect('/home/')
+
+        else:
+            return render(request, 'societies/message.html', 
+                    {'message': 'Oops! That is a bad request'})
+                            
     return render(request, 'societies/message.html', 
                     {'message': 'You are not authorized for this action'})
