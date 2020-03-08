@@ -1,0 +1,44 @@
+{% extends 'users/base.html' %}
+{% block content %}
+<div class="container">
+    {% if messages %}
+        Hi {{ user.username }}
+        {% for i in messages %}
+            {{ i }}
+        {% endfor %}
+    {% else %}
+        Hi {{ user.username }}, Welcome Back! 
+    {% endif %}
+    <hr/>
+        
+    <h3>Flat owners of {{ secretary.society_name }}</h3>
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Flat No</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in flatOwners %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    {% if i.name == secretary.secretary %}
+                        <td>{{ i.name }} - Secretary</td>
+                    {% else %}
+                        <td>{{ i.name }}</td>
+                    {% endif %}
+                    <td>{{ i.flat_no }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if isSec %}
+        <a href="{% url 'createBill' %}" class="btn btn-outline-info btn-block">
+            Click Me to create bill/ send alerts
+        </a>
+    {% endif %}
+</div>
+{% endblock content %}
