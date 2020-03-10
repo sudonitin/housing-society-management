@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 
 from societies.models import SocietyDetail, Owner, Forum, MaintenanceBill
 
@@ -69,7 +70,7 @@ def forumDisplay(request):
     owner = get_object_or_404(Owner, name = request.user)
     issues = Forum.objects.filter(society = owner.society)
     voters = [issue.voters.strip('][').split(', ') for issue in issues]
-    voters = [voter.strip("'") for voter in voters[0]]
+    # voters = [voter.strip("'") for voter in voters[0]]
     return render(request, 'societies/forumPage.html', 
                 {
                 'issues': issues, 
@@ -77,3 +78,17 @@ def forumDisplay(request):
                 'voters': voters,
                 }
     )
+
+@login_required
+def upVote(request):
+    print('hello', request.GET['issueId'])
+    issueId = get_object_or_404(Forum, pk = request.GET['issueId'])
+    voters = issueId.voters.strip('][').split(', ')
+    voters = [i.strip("'") for i in voters]
+    voters.append(str(request.user))
+    issueId.voters = str(voters)
+    issueId.votes = len(voters)
+    issueId.save()
+    forumDisplay(request)
+    data = {'message': 'upvoted successfully', 'upvoted': True}
+    return JsonResponse(data)
