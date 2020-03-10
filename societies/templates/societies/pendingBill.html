@@ -1,0 +1,13 @@
+{% extends 'users/base.html' %}
+{% block content %}
+<div class="container">
+    {% for bill in bills %}
+        <div class="card border-dark">
+            <div class="card-body">
+                {{ bill.description }}
+            </div>
+        </div>
+        <br/>
+    {% endfor %}
+</div>
+{% endblock content %}

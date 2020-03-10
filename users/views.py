@@ -64,6 +64,11 @@ def sendBill(request):
     return render(request, 'societies/message.html', 
                     {'message': 'You are not authorized for this action'})
 
+@login_required
+def pendingBills(request):
+    pending = MaintenanceBill.objects.filter(for_owner = request.user, paid = 'no')
+    return render(request, 'societies/pendingBill.html', {'bills': pending})
+
 # forum for respective society
 @login_required
 def forumDisplay(request):

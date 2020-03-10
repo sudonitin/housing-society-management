@@ -10,6 +10,7 @@ urlpatterns = [
     path('home/', user_views.home, name = 'home'),
     path('createbill/', user_views.createBill, name = 'createBill'),
     path('sendbill/', user_views.sendBill, name = 'sendBill'),
+    path('pendingbills/', user_views.pendingBills, name = 'pendingbills'),
     path('forum/', user_views.forumDisplay, name = 'forum'),
     path('upvote/', user_views.upVote, name = 'upvote'),
     path('newtopic/', user_views.newTopic, name = 'newtopic'),

@@ -1,7 +1,7 @@
 {% extends 'users/base.html' %}
 {% block javascript %}
 <script>
-    // issue, current user, voterlist of corresponding issue
+    // issue
 function upVote(issueId){
     $.ajax({
         type: 'GET',
@@ -21,6 +21,17 @@ function upVote(issueId){
 </script>
 {% endblock javascript %}
 
+<!-- ----CSS----- -->
+{% block css %}
+<style>
+    #arrow:hover{
+        text-decoration-line: none !important;
+        color: orangered !important;
+    }
+</style>
+{% endblock css %}
+
+<!-- ----CONTENT---- -->
 {% block content %}
 <div class="container">
     {% if messages %}
@@ -50,7 +61,7 @@ function upVote(issueId){
                     </h4>
                 {% else %}
                     <h4>
-                        <a href onclick="upVote({{ i.pk }})">
+                        <a href id="arrow" onclick="upVote({{ i.pk }})">
                             <i class="fa fa-arrow-up" style="opacity: 0.5;" aria-hidden="true"></i>
                         </a>
                         {{ i.title }} 

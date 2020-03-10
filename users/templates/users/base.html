@@ -11,6 +11,15 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto:500&display=swap" rel="stylesheet"> 
+        {% block css %}{% endblock %}
+        <style>
+            .nav-item{
+                color: white !important;
+            }
+            .nav-item:hover{
+                color: #dedede !important;
+            }
+        </style>
         <title>MMS</title>
     </head>
     <body style="font-family: 'Roboto', sans-serif;">
@@ -20,12 +29,13 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarText" style="color: white;">
+                <div class="collapse navbar-collapse" id="navbarText">
                     <div class="navbar-nav mr-auto">
                         <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
-                        <a class="nav-item nav-link" href="#services">Services</a>
+                        <a class="nav-item nav-link" href="{% url 'landing' %}#services">Services</a>
                         {% if user.username %}
                         <a class="nav-item nav-link" href="{% url 'forum' %}">Forum</a>
+                        <a class="nav-item nav-link" href="{% url 'pendingbills' %}">Pending Bills</a>
                         {% endif %}
                     </div>
                     <div class="navbar-nav mr-auto">
