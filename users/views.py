@@ -84,6 +84,8 @@ def upVote(request):
     print('hello', request.GET['issueId'])
     issueId = get_object_or_404(Forum, pk = request.GET['issueId'])
     voters = issueId.voters.strip('][').split(', ')
+    if '' in voters:
+        voters.remove('')
     voters = [i.strip("'") for i in voters]
     voters.append(str(request.user))
     issueId.voters = str(voters)
@@ -92,3 +94,14 @@ def upVote(request):
     forumDisplay(request)
     data = {'message': 'upvoted successfully', 'upvoted': True}
     return JsonResponse(data)
+
+@login_required
+def newTopic(request):
+    if request.method == 'POST':
+        owner = get_object_or_404(Owner, name = request.user)
+        Forum(title = request.POST['title'], description = request.POST['description'],
+                creator = request.user, society = owner.society).save()
+        messages.success(request, 'Topic created successfully!')
+        return HttpResponseRedirect('/forum/')
+    else:
+        return render(request, 'societies/newTopic.html')

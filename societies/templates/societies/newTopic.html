@@ -1,0 +1,26 @@
+{% extends 'users/base.html' %}
+{% block content %}
+<div class="container">
+    <form method="POST" action="{% url 'newtopic' %}">
+        {% csrf_token %}
+        <div class="card border-dark">
+            <div class="card-header border-dark">
+                <h3>Create New Topic</h3>
+            </div>
+            <div class="card-body">
+               <div class="form-group">
+                    <label for="title">Title</label>   
+                    <input class="form-control" placeholder="Type a title for your issue" type="text" id="title" name="title" /> 
+                </div>
+               <div class="form-group">
+                   <label for="description">Description</label>
+                   <textarea class="form-control" placeholder="Describe about the issue here"
+                            type="text" id="description" name="description"></textarea>
+               </div>
+            </div>
+        </div>
+        <br/>
+        <input type="submit" value="Create" class="btn btn-outline-info btn-block btn-lg" />
+    </form>
+</div>
+{% endblock content %}

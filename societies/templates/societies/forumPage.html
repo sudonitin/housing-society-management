@@ -23,7 +23,22 @@ function upVote(issueId){
 
 {% block content %}
 <div class="container">
-    <h3>Forum for {{ society_name }}</h3>
+    {% if messages %}
+        {% for i in messages %}
+            <h5 class="alert alert-success">
+                {{ i }}
+            </h5>
+        {% endfor %}
+    {% endif %}
+    <div class="row">
+        <div class="col">
+            <h3>Forum for {{ society_name }}</h3>
+        </div>
+        <div class="col" style="text-align: right;">
+            <a href="{% url 'newtopic' %}" class="btn btn-primary">+ Create New Topic</a>
+        </div>
+    </div>
+    
     {% for i in issues %}
         <div class="card border-dark">
             <div class="card-header border-dark">
