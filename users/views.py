@@ -62,3 +62,18 @@ def sendBill(request):
                             
     return render(request, 'societies/message.html', 
                     {'message': 'You are not authorized for this action'})
+
+# forum for respective society
+@login_required
+def forumDisplay(request):
+    owner = get_object_or_404(Owner, name = request.user)
+    issues = Forum.objects.filter(society = owner.society)
+    voters = [issue.voters.strip('][').split(', ') for issue in issues]
+    voters = [voter.strip("'") for voter in voters[0]]
+    return render(request, 'societies/forumPage.html', 
+                {
+                'issues': issues, 
+                'society_name': owner.society,
+                'voters': voters,
+                }
+    )

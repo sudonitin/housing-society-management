@@ -25,7 +25,7 @@
                         <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
                         <a class="nav-item nav-link" href="#services">Services</a>
                         {% if user.username %}
-                        <a class="nav-item nav-link" href="#services">Forum</a>
+                        <a class="nav-item nav-link" href="{% url 'forum' %}">Forum</a>
                         {% endif %}
                     </div>
                     <div class="navbar-nav mr-auto">

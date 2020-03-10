@@ -15,7 +15,8 @@ class Forum(models.Model):
     title = models.CharField(max_length = 100, null = False)
     description = models.CharField(max_length = 1000, null = False)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
-    votes = models.IntegerField( null=False)
+    votes = models.IntegerField( null=False, default=0)
+    voters = models.CharField(max_length = 500, null = False, default = "")
     society = models.ForeignKey(SocietyDetail, on_delete=models.CASCADE)
 
     def __str__(self):
